@@ -1,0 +1,5 @@
+<h2>Edit Radical</h2>
+
+<%= render "form.html", Map.put(assigns, :action, radical_path(@conn, :update, @radical)) %>
+
+<span><%= link "Back", to: radical_path(@conn, :index) %></span>

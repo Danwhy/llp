@@ -1,0 +1,35 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :radical, class: "control-label" %>
+    <%= text_input f, :radical, class: "form-control" %>
+    <%= error_tag f, :radical %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :stroke_count, class: "control-label" %>
+    <%= number_input f, :stroke_count, class: "form-control" %>
+    <%= error_tag f, :stroke_count %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :onyomi, class: "control-label" %>
+    <%= text_input f, :onyomi, class: "form-control", name: "radical[onyomi][]" %>
+    <%= error_tag f, :onyomi %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :kunyomi, class: "control-label" %>
+    <%= text_input f, :kunyomi, class: "form-control", name: "radical[kunyomi][]" %>
+    <%= error_tag f, :kunyomi %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

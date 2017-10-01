@@ -1,0 +1,30 @@
+<h2>Show Radical</h2>
+
+<ul>
+
+  <li>
+    <strong>Radical:</strong>
+    <%= @radical.radical %>
+  </li>
+
+  <li>
+    <strong>Stroke count:</strong>
+    <%= @radical.stroke_count %>
+  </li>
+
+  <li>
+    <strong>Onyomi:</strong>
+    <%= for {o, i} <- Enum.with_index @radical.onyomi do %>
+      <%= o %><%= if i !== (length @radical.onyomi) - 1 do %>,<% end %>
+    <% end %>
+  </li>
+
+  <li>
+    <strong>Kunyomi:</strong>
+    <%= @radical.kunyomi %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: radical_path(@conn, :edit, @radical) %></span>
+<span><%= link "Back", to: radical_path(@conn, :index) %></span>
