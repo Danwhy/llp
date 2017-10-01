@@ -14,8 +14,10 @@
 
   <li>
     <strong>Onyomi:</strong>
-    <%= for {o, i} <- Enum.with_index @radical.onyomi do %>
-      <%= o %><%= if i !== (length @radical.onyomi) - 1 do %>,<% end %>
+    <%= if @radical.onyomi do %>
+      <%= for {o, i} <- Enum.with_index @radical.onyomi do %>
+        <%= o %><%= if i !== (length @radical.onyomi) - 1 do %>,<% end %>
+      <% end %>
     <% end %>
   </li>
 
