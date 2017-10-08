@@ -1,0 +1,33 @@
+<h2>Show Kanji</h2>
+
+<ul>
+
+  <li>
+    <strong>Kanji:</strong>
+    <%= @kanji.kanji %>
+  </li>
+
+  <li>
+    <strong>Stroke count:</strong>
+    <%= @kanji.stroke_count %>
+  </li>
+
+  <li>
+    <strong>Onyomi:</strong>
+    <%= @kanji.onyomi %>
+  </li>
+
+  <li>
+    <strong>Kunyomi:</strong>
+    <%= @kanji.kunyomi %>
+  </li>
+
+  <li>
+    <strong>Meaning:</strong>
+    <%= @kanji.meaning %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: kanji_path(@conn, :edit, @kanji) %></span>
+<span><%= link "Back", to: kanji_path(@conn, :index) %></span>

@@ -1,7 +1,7 @@
 defmodule Llp.Characters.Radical do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Llp.Characters.Radical
+  alias Llp.Characters.{Radical, Kanji}
 
 
   schema "radicals" do
@@ -9,6 +9,8 @@ defmodule Llp.Characters.Radical do
     field :onyomi, {:array, :string}
     field :radical, :string
     field :stroke_count, :integer
+
+    has_many :kanji, Kanji
 
     timestamps()
   end

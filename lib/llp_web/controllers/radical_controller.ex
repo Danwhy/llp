@@ -17,9 +17,21 @@ defmodule LlpWeb.RadicalController do
   def create(conn, %{"radical" => radical_params}) do
     case Characters.create_radical(radical_params) do
       {:ok, radical} ->
-        conn
-        |> put_flash(:info, "Radical created successfully.")
-        |> redirect(to: radical_path(conn, :show, radical))
+        case radical_params["is_kanji"] do
+          "true" ->
+            case Characters.create_kanji(radical, Map.merge(radical_params, %{"kanji" => radical_params["radical"]})) do
+              {:ok, kanji} ->
+                conn
+                |> put_flash(:info, "Kanji + Radical created successfully.")
+                |> redirect(to: kanji_path(conn, :show, kanji))
+              {:error, %Ecto.Changeset{} = changeset} ->
+                render(conn, "new.html", changeset: changeset)
+            end
+          _ ->
+            conn
+            |> put_flash(:info, "Radical created successfully.")
+            |> redirect(to: radical_path(conn, :show, radical))
+        end
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

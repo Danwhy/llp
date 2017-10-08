@@ -30,6 +30,18 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :is_kanji, class: "control-label" %>
+    <%= checkbox f, :is_kanji, class: "form-control" %>
+    <%= error_tag f, :is_kanji %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :meaning, class: "control-label" %>
+    <%= text_input f, :meaning, class: "form-control", name: "radical[meaning][]" %>
+    <%= error_tag f, :meaning %>
+  </div>
+
+  <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>

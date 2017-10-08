@@ -68,4 +68,72 @@ defmodule Llp.CharactersTest do
       assert %Ecto.Changeset{} = Characters.change_radical(radical)
     end
   end
+
+  describe "kanji" do
+    alias Llp.Characters.Kanji
+
+    @valid_attrs %{kanji: "some kanji", kunyomi: [], meaning: [], onyomi: [], stroke_count: 42}
+    @update_attrs %{kanji: "some updated kanji", kunyomi: [], meaning: [], onyomi: [], stroke_count: 43}
+    @invalid_attrs %{kanji: nil, kunyomi: nil, meaning: nil, onyomi: nil, stroke_count: nil}
+
+    def kanji_fixture(attrs \\ %{}) do
+      {:ok, kanji} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Characters.create_kanji()
+
+      kanji
+    end
+
+    test "list_kanji/0 returns all kanji" do
+      kanji = kanji_fixture()
+      assert Characters.list_kanji() == [kanji]
+    end
+
+    test "get_kanji!/1 returns the kanji with given id" do
+      kanji = kanji_fixture()
+      assert Characters.get_kanji!(kanji.id) == kanji
+    end
+
+    test "create_kanji/1 with valid data creates a kanji" do
+      assert {:ok, %Kanji{} = kanji} = Characters.create_kanji(@valid_attrs)
+      assert kanji.kanji == "some kanji"
+      assert kanji.kunyomi == []
+      assert kanji.meaning == []
+      assert kanji.onyomi == []
+      assert kanji.stroke_count == 42
+    end
+
+    test "create_kanji/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Characters.create_kanji(@invalid_attrs)
+    end
+
+    test "update_kanji/2 with valid data updates the kanji" do
+      kanji = kanji_fixture()
+      assert {:ok, kanji} = Characters.update_kanji(kanji, @update_attrs)
+      assert %Kanji{} = kanji
+      assert kanji.kanji == "some updated kanji"
+      assert kanji.kunyomi == []
+      assert kanji.meaning == []
+      assert kanji.onyomi == []
+      assert kanji.stroke_count == 43
+    end
+
+    test "update_kanji/2 with invalid data returns error changeset" do
+      kanji = kanji_fixture()
+      assert {:error, %Ecto.Changeset{}} = Characters.update_kanji(kanji, @invalid_attrs)
+      assert kanji == Characters.get_kanji!(kanji.id)
+    end
+
+    test "delete_kanji/1 deletes the kanji" do
+      kanji = kanji_fixture()
+      assert {:ok, %Kanji{}} = Characters.delete_kanji(kanji)
+      assert_raise Ecto.NoResultsError, fn -> Characters.get_kanji!(kanji.id) end
+    end
+
+    test "change_kanji/1 returns a kanji changeset" do
+      kanji = kanji_fixture()
+      assert %Ecto.Changeset{} = Characters.change_kanji(kanji)
+    end
+  end
 end
