@@ -1,10 +1,11 @@
-<% if @name == "Kanji" do
-  path = &kanji_path/3
-  new_path = &kanji_path/2
-else
-  path = &radical_path/3
-  new_path = &radical_path/2
-end %>
+<% {path, new_path} =
+  case @name do
+    "Kanji" ->
+      {&kanji_path/3, &kanji_path/2}
+    "Radical" ->
+      {&radical_path/3, &radical_path/2}
+  end
+%>
 
 <h2>Listing <%= @name %></h2>
 
@@ -36,7 +37,13 @@ end %>
           <% end %>
         <% end %>
       </td>
-      <td><%= character.kunyomi %></td>
+      <td>
+        <%= if character.kunyomi do %>
+          <%= for {o, i} <- Enum.with_index character.kunyomi do %>
+            <%= o %><%= if i !== (length character.kunyomi) - 1 do %>,<% end %>
+          <% end %>
+        <% end %>
+      </td>
       <%= if @name == "Kanji" do %><td><%= character.meaning %></td><% end %>
 
       <td class="text-right">
