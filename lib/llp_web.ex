@@ -40,6 +40,7 @@ defmodule LlpWeb do
       import LlpWeb.Router.Helpers
       import LlpWeb.ErrorHelpers
       import LlpWeb.Gettext
+      import LlpWeb.ComponentHelper
     end
   end
 
