@@ -29,3 +29,6 @@ npm-debug.log
 # Elm
 /assets/elm-stuff
 /assets/js/main.js
+
+# Data
+radicals.csv
