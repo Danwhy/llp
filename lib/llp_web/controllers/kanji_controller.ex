@@ -15,7 +15,15 @@ defmodule LlpWeb.KanjiController do
   end
 
   def create(conn, %{"kanji" => kanji_params}) do
-    case Characters.create_kanji(kanji_params) do
+    character = kanji_params["radical_character"]
+    radical = Characters.get_radical_by_character!(character)
+
+    case Characters.create_kanji(
+      radical,
+      kanji_params
+      |> Map.merge(%{"radical" => kanji_params["radical_character"]})
+      |> Map.delete("radical_character")
+    ) do
       {:ok, kanji} ->
         conn
         |> put_flash(:info, "Kanji created successfully.")

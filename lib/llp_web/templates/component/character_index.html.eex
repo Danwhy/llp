@@ -1,3 +1,11 @@
+<% if @name == "Kanji" do
+  path = &kanji_path/3
+  new_path = &kanji_path/2
+else
+  path = &radical_path/3
+  new_path = &radical_path/2
+end %>
+
 <h2>Listing <%= @name %></h2>
 
 <table class="table">
@@ -32,13 +40,13 @@
       <%= if @name == "Kanji" do %><td><%= character.meaning %></td><% end %>
 
       <td class="text-right">
-        <span><%= link "Show", to: radical_path(@conn, :show, character), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: radical_path(@conn, :edit, character), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: radical_path(@conn, :delete, character), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span><%= link "Show", to: path.(@conn, :show, character), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: path.(@conn, :edit, character), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: path.(@conn, :delete, character), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New " <> @name, to: radical_path(@conn, :new) %></span>
+<span><%= link "New " <> @name, to: new_path.(@conn, :new) %></span>

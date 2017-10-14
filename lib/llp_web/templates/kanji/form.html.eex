@@ -18,6 +18,30 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :onyomi, class: "control-label" %>
+    <%= text_input f, :onyomi, class: "form-control", name: "kanji[onyomi][]" %>
+    <%= error_tag f, :onyomi %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :kunyomi, class: "control-label" %>
+    <%= text_input f, :kunyomi, class: "form-control", name: "kanji[kunyomi][]" %>
+    <%= error_tag f, :kunyomi %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :meaning, class: "control-label" %>
+    <%= text_input f, :meaning, class: "form-control", name: "kanji[meaning][]" %>
+    <%= error_tag f, :meaning %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :radical_character, class: "control-label" %>
+    <%= text_input f, :radical_character, class: "form-control" %>
+    <%= error_tag f, :radical_character %>
+  </div>
+
+  <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>

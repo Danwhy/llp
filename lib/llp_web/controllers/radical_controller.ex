@@ -19,7 +19,10 @@ defmodule LlpWeb.RadicalController do
       {:ok, radical} ->
         case radical_params["is_kanji"] do
           "true" ->
-            case Characters.create_kanji(radical, Map.merge(radical_params, %{"kanji" => radical_params["radical"]})) do
+            case Characters.create_kanji(
+              radical,
+              Map.merge(radical_params, %{"kanji" => radical_params["radical"]})
+            ) do
               {:ok, kanji} ->
                 conn
                 |> put_flash(:info, "Kanji + Radical created successfully.")

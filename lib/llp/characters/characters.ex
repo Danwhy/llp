@@ -22,7 +22,7 @@ defmodule Llp.Characters do
   end
 
   @doc """
-  Gets a single radical.
+  Gets a single radical by id.
 
   Raises `Ecto.NoResultsError` if the Radical does not exist.
 
@@ -36,6 +36,24 @@ defmodule Llp.Characters do
 
   """
   def get_radical!(id), do: Repo.get!(Radical, id)
+
+  @doc """
+  Gets a single radical by radical character.
+
+  Raises `Ecto.NoResultsError` if the Radical does not exist.
+
+  ## Examples
+
+      iex> get_radical!("一")
+      %Radical{}
+
+      iex> get_radical!("右")
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_radical_by_character!(character) do
+    Repo.get_by!(Radical, radical: character)
+  end
 
   @doc """
   Creates a radical.
