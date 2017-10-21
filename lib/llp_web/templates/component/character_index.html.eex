@@ -1,13 +1,13 @@
-<% {path, new_path} =
+<% {path, new_path, plural} =
   case @name do
     "Kanji" ->
-      {&kanji_path/3, &kanji_path/2}
+      {&kanji_path/3, &kanji_path/2, "Kanji"}
     "Radical" ->
-      {&radical_path/3, &radical_path/2}
+      {&radical_path/3, &radical_path/2, "Radicals"}
   end
 %>
 
-<h2>Listing <%= @name %></h2>
+<h2>Listing <%= plural %></h2>
 
 <table class="table">
   <thead>

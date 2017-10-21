@@ -77,10 +77,11 @@ defmodule Llp.CharactersTest do
     @invalid_attrs %{kanji: nil, kunyomi: nil, meaning: nil, onyomi: nil, stroke_count: nil}
 
     def kanji_fixture(attrs \\ %{}) do
+      radical = radical_fixture()
       {:ok, kanji} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Characters.create_kanji()
+        |> (&Characters.create_kanji(radical, &1)).()
 
       kanji
     end
@@ -96,7 +97,8 @@ defmodule Llp.CharactersTest do
     end
 
     test "create_kanji/1 with valid data creates a kanji" do
-      assert {:ok, %Kanji{} = kanji} = Characters.create_kanji(@valid_attrs)
+      radical = radical_fixture()
+      assert {:ok, %Kanji{} = kanji} = Characters.create_kanji(radical, @valid_attrs)
       assert kanji.kanji == "some kanji"
       assert kanji.kunyomi == []
       assert kanji.meaning == []
@@ -105,7 +107,8 @@ defmodule Llp.CharactersTest do
     end
 
     test "create_kanji/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Characters.create_kanji(@invalid_attrs)
+      radical = radical_fixture()
+      assert {:error, %Ecto.Changeset{}} = Characters.create_kanji(radical, @invalid_attrs)
     end
 
     test "update_kanji/2 with valid data updates the kanji" do

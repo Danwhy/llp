@@ -2,13 +2,15 @@ defmodule LlpWeb.KanjiControllerTest do
   use LlpWeb.ConnCase
 
   alias Llp.Characters
+  alias LlpWeb.RadicalControllerTest
 
   @create_attrs %{kanji: "some kanji", kunyomi: [], meaning: [], onyomi: [], stroke_count: 42}
   @update_attrs %{kanji: "some updated kanji", kunyomi: [], meaning: [], onyomi: [], stroke_count: 43}
   @invalid_attrs %{kanji: nil, kunyomi: nil, meaning: nil, onyomi: nil, stroke_count: nil}
 
   def fixture(:kanji) do
-    {:ok, kanji} = Characters.create_kanji(@create_attrs)
+    radical = RadicalControllerTest.fixture(:radical)
+    {:ok, kanji} = Characters.create_kanji(radical, @create_attrs)
     kanji
   end
 
@@ -28,7 +30,9 @@ defmodule LlpWeb.KanjiControllerTest do
 
   describe "create kanji" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post conn, kanji_path(conn, :create), kanji: @create_attrs
+      radical = RadicalControllerTest.fixture(:radical)
+      kanji_attrs = Map.put_new(@create_attrs, :radical_character, radical.radical)
+      conn = post conn, kanji_path(conn, :create), kanji: kanji_attrs
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == kanji_path(conn, :show, id)
@@ -38,7 +42,9 @@ defmodule LlpWeb.KanjiControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, kanji_path(conn, :create), kanji: @invalid_attrs
+      radical = RadicalControllerTest.fixture(:radical)
+      kanji_attrs = Map.put_new(@invalid_attrs, :radical_character, radical.radical)
+      conn = post conn, kanji_path(conn, :create), kanji: kanji_attrs
       assert html_response(conn, 200) =~ "New Kanji"
     end
   end
