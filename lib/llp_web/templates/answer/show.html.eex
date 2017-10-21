@@ -1,0 +1,18 @@
+<h2>Show Answer</h2>
+
+<ul>
+
+  <li>
+    <strong>Attempts:</strong>
+    <%= @answer.attempts %>
+  </li>
+
+  <li>
+    <strong>Correct:</strong>
+    <%= @answer.correct %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: answer_path(@conn, :edit, @answer) %></span>
+<span><%= link "Back", to: answer_path(@conn, :index) %></span>

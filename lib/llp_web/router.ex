@@ -19,6 +19,7 @@ defmodule LlpWeb.Router do
     get "/", PageController, :index
     resources "/radicals", RadicalController
     resources "/kanji", KanjiController
+    resources "/answers", AnswerController
   end
 
   # Other scopes may use custom stacks.
